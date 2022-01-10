@@ -1,0 +1,66 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Jan  9 14:31:57 2022
+
+@author: wilsonzhang
+"""
+
+import numpy as np 
+
+from ML import Linear_Regression
+from sklearn.datasets import load_boston
+from sklearn.preprocessing import MinMaxScaler
+
+X, y = load_boston(return_X_y=True)
+
+Scaler = MinMaxScaler()
+X = Scaler.fit_transform(X)
+
+clf = Linear_Regression()
+clf.fit(X, y)
+print(clf.theta)
+
+
+clf2 = Linear_Regression(optimizer = 'BGD', step_size =0.01)
+clf2.fit(X,y)
+print(clf2.theta)
+
+
+clf3 = Linear_Regression(optimizer = 'Newton')
+clf3.fit(X,y)
+print(clf3.theta)
+
+
+from sklearn.linear_model import LinearRegression
+clf4 = LinearRegression()
+clf4.fit(X,y)
+print (np.append(clf4.intercept_, clf4.coef_)) 
+
+
+
+
+
+from sklearn.datasets import load_iris
+
+X, y = load_iris(return_X_y=True)
+y = np.where(y==1,1,0)
+X=Scaler.fit_transform(X)
+
+from ML import Logistic_Regression
+
+clf5 = Logistic_Regression(optimizer = 'BGD', step_size=0.01)
+clf5.fit(X, y)
+print(clf5.theta)
+
+
+clf6 = Logistic_Regression(optimizer = 'Newton')
+clf6.fit(X, y)
+print(clf6.theta)
+
+
+from sklearn.linear_model import LogisticRegression
+
+clf7 = LogisticRegression(penalty='none')
+clf7.fit(X,y)
+print(np.append(clf7.intercept_, clf7.coef_))
