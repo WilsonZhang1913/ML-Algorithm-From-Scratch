@@ -8,7 +8,7 @@ Created on Sun Jan  9 14:31:57 2022
 
 import numpy as np 
 
-from ML import Linear_Regression
+from ML_new import Linear_Regression
 from sklearn.datasets import load_boston
 from sklearn.preprocessing import MinMaxScaler
 
@@ -47,7 +47,7 @@ X, y = load_iris(return_X_y=True)
 y = np.where(y==1,1,0)
 X=Scaler.fit_transform(X)
 
-from ML import Logistic_Regression
+from ML_new import Logistic_Regression
 
 clf5 = Logistic_Regression(optimizer = 'BGD', step_size=0.01)
 clf5.fit(X, y)
@@ -64,3 +64,37 @@ from sklearn.linear_model import LogisticRegression
 clf7 = LogisticRegression(penalty='none')
 clf7.fit(X,y)
 print(np.append(clf7.intercept_, clf7.coef_))
+
+
+
+from sklearn.datasets import load_iris
+
+X, y = load_iris(return_X_y=True)
+
+from ML_new import SoftMax_Regression
+
+X=Scaler.fit_transform(X)
+
+
+clf8 = SoftMax_Regression(optimizer = 'BGD', step_size=0.01)
+clf8.fit(X, y)
+
+y_pred = clf8.predict(X)
+clf8.theta
+
+y_pred_class = y_pred.argmax(axis=1)
+
+
+from sklearn.metrics import accuracy_score
+
+accuracy_score(y, y_pred_class)
+
+
+clf7.fit(X,y)
+
+y_pred_class_sklearn = clf7.predict(X)
+
+accuracy_score(y, y_pred_class_sklearn)
+
+
+
